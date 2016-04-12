@@ -1,4 +1,4 @@
-﻿var host = "ws://localhost:1491/ws";
+﻿var host = "ws://" + document.location.hostname + ":" + document.location.port + "/ws";
 
 function Connection() {
     this.isConnected = false;
