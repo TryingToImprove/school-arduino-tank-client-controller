@@ -43,6 +43,10 @@ function Connection(options) {
         if (this.isConnected) {
             var socketMessage = JSON.stringify(message);
             this.socket.send(socketMessage);
+
+            if (typeof (options.onSendMessage) === "function") {
+                options.onSendMessage(socketMessage);
+            }
         } else {
             console.log("Socket is not connected");
         }
@@ -150,6 +154,9 @@ var connection = new Connection({
     },
     onNotSupported: function () {
         connectionController.changeState("notSupported");
+    },
+    onSendMessage: function (message) {
+        document.querySelector("#log-message").innerText = message;
     }
 });
 var controller = new Controller(connection);
