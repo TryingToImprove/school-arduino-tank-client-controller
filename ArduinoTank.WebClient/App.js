@@ -39,19 +39,19 @@ function Controller(connection) {
             }
         };
 
-    addEventListenerExtended($controlpanel.$forward, ["mousedown", "touchstart"], controlpanelButtonEventFunc(function () {
+    addEventListenerExtended($controlpanel.$forward, ["mousedown", "touchstart", "MSPointerDown"], controlpanelButtonEventFunc(function () {
         connection.send(["move-forward engineA 255", "move-forward engineB 255"]);
     }));
 
-    addEventListenerExtended($controlpanel.$backward, ["mousedown", "touchstart"], controlpanelButtonEventFunc(function () {
+    addEventListenerExtended($controlpanel.$backward, ["mousedown", "touchstart", "MSPointerDown"], controlpanelButtonEventFunc(function () {
         connection.send(["move-backward engineA 255", "move-backward engineB 255"]);
     }));
 
-    addEventListenerExtended($controlpanel.$right, ["mousedown", "touchstart"], controlpanelButtonEventFunc(function () {
+    addEventListenerExtended($controlpanel.$right, ["mousedown", "touchstart", "MSPointerDown"], controlpanelButtonEventFunc(function () {
         connection.send(["move-forward engineA 255", "move-backward engineB 255"]);
     }));
 
-    addEventListenerExtended($controlpanel.$left, ["mousedown", "touchstart"], controlpanelButtonEventFunc(function () {
+    addEventListenerExtended($controlpanel.$left, ["mousedown", "touchstart", "MSPointerDown"], controlpanelButtonEventFunc(function () {
         connection.send(["move-backward engineA 255", "move-forward engineB 255"]);
     }));
 
@@ -65,7 +65,7 @@ function Controller(connection) {
 
     for (var propName in $controlpanel) {
         if ($controlpanel.hasOwnProperty(propName)) {
-            addEventListenerExtended($controlpanel[propName], ["mouseup", "touchend"], stopFunc);
+            addEventListenerExtended($controlpanel[propName], ["mouseup", "touchend", "MSPointerUp"], stopFunc);
         }
     }
 }
