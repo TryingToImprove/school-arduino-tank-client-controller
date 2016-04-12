@@ -41,6 +41,6 @@ body {
     text-decoration: none;
 }
 
-.controlpanel__button:active {
+.controlpanel__button--active {
     background: #3498db
 }
