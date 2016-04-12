@@ -1,4 +1,5 @@
-﻿var host = "ws://" + document.location.hostname + ":" + document.location.port + "/ws";
+﻿var port = document.location.port ? ":" + document.location.port : "",
+    host = "ws://" + document.location.hostname + port + "/ws";
 
 function addEventListenerExtended($dom, eventNames, func) {
     eventNames.forEach(function (eventName) {
