@@ -44,3 +44,18 @@ body {
 .controlpanel__button--active {
     background: #3498db
 }
+
+.connection-status {
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    padding: 0.6em 0.6em;
+    border-radius: 0 4px 0 0;
+    font-size: 0.5em;
+    line-height: 1em;
+}
+
+.connection-status--connected {
+    background-color: #2ecc71;
+    color: #FFF;
+}

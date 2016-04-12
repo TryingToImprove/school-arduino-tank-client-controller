@@ -6,13 +6,21 @@ function addEventListenerExtended($dom, eventNames, func) {
     });
 }
 
-function Connection() {
+function Connection(options) {
     this.isConnected = false;
 
     this.socket = new WebSocket(host);
     this.socket.onopen = function (openEvent) {
         this.isConnected = true;
+
+        if (typeof (options.onConnected) === "function") {
+            options.onConnected();
+        }
     }.bind(this);
+
+    this.socket.onclose = function (closeEvent) {
+        console.log(closeEvent);
+    }
 
     this.send = function (message) {
         if (this.isConnected) {
@@ -24,11 +32,11 @@ function Connection() {
 
 function Controller(connection) {
     var $controlpanel = {
-            $forward: document.querySelector("#controlpanel__control_forward"),
-            $left: document.querySelector("#controlpanel__control_left"),
-            $right: document.querySelector("#controlpanel__control_right"),
-            $backward: document.querySelector("#controlpanel__control_backward")
-        },
+        $forward: document.querySelector("#controlpanel__control_forward"),
+        $left: document.querySelector("#controlpanel__control_left"),
+        $right: document.querySelector("#controlpanel__control_right"),
+        $backward: document.querySelector("#controlpanel__control_backward")
+    },
         controlpanelButtonEventFunc = function (extendedFunc) {
             return function (e) {
                 e.preventDefault();
@@ -70,6 +78,52 @@ function Controller(connection) {
     }
 }
 
+function ConnectionController() {
+    var $dom = document.querySelector("#connection-status"),
+        currentStateClass = "",
+        changeStateClass = function (nextClass) {
+            if (currentStateClass != "") {
+                $dom.classList.remove(currentStateClass);
+            }
 
-var connection = new Connection();
+            currentStateClass = nextClass;
+            $dom.classList.add(nextClass);
+        };
+
+    this.changeState = function (state) {
+        switch (state) {
+            case "connected":
+                changeStateClass("connection-status--connected");
+                $dom.innerText = "Connected";
+                break;
+            case "connecting":
+                changeStateClass("connection-status--connecting");
+                $dom.innerText = "Connecting";
+                break;
+            case "disconnected":
+                changeStateClass("connection-status--disconnected");
+                $dom.innerText = "Disconnected";
+                break;
+            default:
+                changeStateClass("connection-status--idle");
+                $dom.innerText = "Idle";
+                break;
+        }
+    }
+
+    this.changeState();
+}
+
+var connectionController = new ConnectionController();
+var connection = new Connection({
+    onConnected: function () {
+        connectionController.changeState("connected");
+    },
+    onConnecting: function () {
+        connectionController.changeState("connecting");
+    },
+    onDisconnected: function () {
+        connectionController.changeState("disconnected");
+    }
+});
 var controller = new Controller(connection);
