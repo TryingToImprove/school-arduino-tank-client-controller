@@ -9,23 +9,41 @@ function addEventListenerExtended($dom, eventNames, func) {
 function Connection(options) {
     this.isConnected = false;
 
-    this.socket = new WebSocket(host);
-    this.socket.onopen = function (openEvent) {
-        this.isConnected = true;
-
-        if (typeof (options.onConnected) === "function") {
-            options.onConnected();
+    if (typeof (WebSocket) != "function") {
+        if (typeof (options.onNotSupported) === "function") {
+            options.onNotSupported();
         }
-    }.bind(this);
+    } else {
 
-    this.socket.onclose = function (closeEvent) {
-        console.log(closeEvent);
+        if (typeof (options.onConnecting) === "function") {
+            options.onConnecting();
+        }
+
+        this.socket = new WebSocket(host);
+
+        this.socket.onopen = function (openEvent) {
+            this.isConnected = true;
+
+            if (typeof (options.onConnected) === "function") {
+                options.onConnected();
+            }
+        }.bind(this);
+
+        this.socket.onclose = function (closeEvent) {
+            console.log(closeEvent);
+
+            if (typeof (options.onDisconnected) === "function") {
+                options.onDisconnected();
+            }
+        }
     }
 
     this.send = function (message) {
         if (this.isConnected) {
             var socketMessage = JSON.stringify(message);
             this.socket.send(socketMessage);
+        } else {
+            console.log("Socket is not connected");
         }
     }
 }
@@ -104,6 +122,10 @@ function ConnectionController() {
                 changeStateClass("connection-status--disconnected");
                 $dom.innerText = "Disconnected";
                 break;
+            case "notSupported":
+                changeStateClass("connection-status--not-supported");
+                $dom.innerText = "WebSocket not supported";
+                break;
             default:
                 changeStateClass("connection-status--idle");
                 $dom.innerText = "Idle";
@@ -124,6 +146,9 @@ var connection = new Connection({
     },
     onDisconnected: function () {
         connectionController.changeState("disconnected");
+    },
+    onNotSupported: function () {
+        connectionController.changeState("notSupported");
     }
 });
 var controller = new Controller(connection);
