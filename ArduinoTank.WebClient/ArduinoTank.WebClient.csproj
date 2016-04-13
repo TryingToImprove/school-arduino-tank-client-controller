@@ -105,7 +105,6 @@
   <ItemGroup>
     <Content Include="App.js" />
     <Content Include="index.html" />
-    <Content Include="SocketConnector.js" />
     <Content Include="Styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
