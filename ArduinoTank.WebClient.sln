@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoTank.WebClient", "ArduinoTank.WebClient\ArduinoTank.WebClient.csproj", "{C4553A8B-23F4-46C1-9980-6BEFCDABC0F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoTank.Raspberry.TestServer", "ArduinoTank.Raspberry.TestServer\ArduinoTank.Raspberry.TestServer.csproj", "{82A49E3A-4410-4EC0-B253-EB0FAA7BAE57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArduinoTank.Api", "ArduinoTank.Api\ArduinoTank.Api.csproj", "{672B9BE1-11AE-4E06-A781-AB45EFB11C47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{C4553A8B-23F4-46C1-9980-6BEFCDABC0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4553A8B-23F4-46C1-9980-6BEFCDABC0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4553A8B-23F4-46C1-9980-6BEFCDABC0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A49E3A-4410-4EC0-B253-EB0FAA7BAE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A49E3A-4410-4EC0-B253-EB0FAA7BAE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A49E3A-4410-4EC0-B253-EB0FAA7BAE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A49E3A-4410-4EC0-B253-EB0FAA7BAE57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{672B9BE1-11AE-4E06-A781-AB45EFB11C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672B9BE1-11AE-4E06-A781-AB45EFB11C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672B9BE1-11AE-4E06-A781-AB45EFB11C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672B9BE1-11AE-4E06-A781-AB45EFB11C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
