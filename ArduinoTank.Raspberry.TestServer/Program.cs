@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -21,30 +23,29 @@ namespace ArduinoTank.Raspberry.TestServer
 
                 Clients.Add(client);
 
-                var childSocketThread = new Thread(() =>
-                {
-                    using (var ns = client.GetStream())
-                    using (var sr = new StreamReader(ns))
-                    {
-                        while (true)
-                        {
-                            var msg = sr.ReadLine();
-                            Clients.ForEach(x =>
-                            {
-                                using (var ns2 = client.GetStream())
-                                using (var sw = new StreamWriter(ns2))
-                                {
-                                    sw.WriteLine(msg);
-                                }
-                            });
-                        }
-                    }
-                    client.Close();
-                });
-                childSocketThread.Start();
+                var childSocketThread = new Thread(new ParameterizedThreadStart(ClientConection));
+                childSocketThread.Start(client);
             }
 
             listner.Stop();
+        }
+
+        private static void ClientConection(object clientObj)
+        {
+            var client = (TcpClient)clientObj;
+
+            var sr = new StreamReader(client.GetStream());
+            while (true)
+            {
+                var msg = sr.ReadLine();
+
+                foreach (var x in Clients.Where(x => x != client))
+                {
+                    var sw = new StreamWriter(x.GetStream());
+                    sw.WriteLine(msg);
+                    sw.Flush();
+                }
+            }
         }
     }
 }
