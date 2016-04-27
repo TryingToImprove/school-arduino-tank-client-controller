@@ -87,11 +87,21 @@ function Controller(connection) {
     }));
 
     // When any of the controls are not pressed it should trigger a stop
+    var stopTimeout = null;
     var stopFunc = function (e) {
         e.preventDefault();
 
         this.classList.remove("controlpanel__button--active");
-        connection.send(["stop engineA 0", "stop engineB 0"]);
+
+        if (stopTimeout != null) {
+            clearTimeout(stopTimeout);
+        }
+
+        stopTimeout = setTimeout(function () {
+            connection.send(["stop engineA 0", "stop engineB 0"]);
+
+            stopTimeout = null;
+        }, 500);
     }
 
     for (var propName in $controlpanel) {
