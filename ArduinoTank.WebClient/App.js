@@ -79,11 +79,11 @@ function Controller(connection) {
     }));
 
     addEventListenerExtended($controlpanel.$right, ["mousedown", "touchstart", "MSPointerDown", "pointerdown"], controlpanelButtonEventFunc(function () {
-        connection.send(["move-forward engineA 255", "move-backward engineB 255"]);
+        connection.send(["move-forward engineA 1500", "move-backward engineB 150"]);
     }));
 
     addEventListenerExtended($controlpanel.$left, ["mousedown", "touchstart", "MSPointerDown", "pointerdown"], controlpanelButtonEventFunc(function () {
-        connection.send(["move-backward engineA 255", "move-forward engineB 255"]);
+        connection.send(["move-backward engineA 150", "move-forward engineB 150"]);
     }));
 
     // When any of the controls are not pressed it should trigger a stop
@@ -101,7 +101,7 @@ function Controller(connection) {
             connection.send(["stop engineA 0", "stop engineB 0"]);
 
             stopTimeout = null;
-        }, 500);
+        }, 1000);
     }
 
     for (var propName in $controlpanel) {
