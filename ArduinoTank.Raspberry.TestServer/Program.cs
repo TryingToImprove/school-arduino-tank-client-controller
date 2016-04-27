@@ -17,7 +17,7 @@ namespace ArduinoTank.Raspberry.TestServer
 
         private static void Main(string[] args)
         {
-            var listner = new TcpListener(IPAddress.Parse("127.0.0.1"), 7050);
+            var listner = new TcpListener(IPAddress.Parse("5.175.3.107"), 7050);
             listner.Start();
 
             var writerThread = new Thread(() =>

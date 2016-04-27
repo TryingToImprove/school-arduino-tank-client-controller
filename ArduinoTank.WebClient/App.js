@@ -91,7 +91,7 @@ function Controller(connection) {
         e.preventDefault();
 
         this.classList.remove("controlpanel__button--active");
-        connection.send(["stop engineA", "stop engineB"]);
+        connection.send(["stop engineA 0", "stop engineB 0"]);
     }
 
     for (var propName in $controlpanel) {

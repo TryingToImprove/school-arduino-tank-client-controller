@@ -25,7 +25,7 @@ namespace ArduinoTank.Api
         {
             if (!socket.Connected)
             {
-                socket.Connect(IPAddress.Parse("127.0.0.1"), 7050);
+                socket.Connect(IPAddress.Parse("5.175.3.107"), 7050);
             }
 
             socket.Send(Encoding.UTF8.GetBytes(message + "\n"));
