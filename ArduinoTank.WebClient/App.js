@@ -79,7 +79,7 @@ function Controller(connection) {
     }));
 
     addEventListenerExtended($controlpanel.$right, ["mousedown", "touchstart", "MSPointerDown", "pointerdown"], controlpanelButtonEventFunc(function () {
-        connection.send(["move-forward engineA 1500", "move-backward engineB 150"]);
+        connection.send(["move-forward engineA 150", "move-backward engineB 150"]);
     }));
 
     addEventListenerExtended($controlpanel.$left, ["mousedown", "touchstart", "MSPointerDown", "pointerdown"], controlpanelButtonEventFunc(function () {
