@@ -14,7 +14,7 @@ namespace ArduinoTank.Raspberry.TestServer
 
         private static void Main(string[] args)
         {
-            var listner = new TcpListener(IPAddress.Parse("127.0.0.1"), 7050);
+            var listner = new TcpListener(IPAddress.Parse("5.175.3.107"), 7050);
             listner.Start();
 
             while (true)
@@ -37,14 +37,17 @@ namespace ArduinoTank.Raspberry.TestServer
             var sr = new StreamReader(client.GetStream());
             while (true)
             {
-                var msg = sr.ReadLine();
-
-                foreach (var x in Clients.Where(x => x != client))
+                try
                 {
-                    var sw = new StreamWriter(x.GetStream());
-                    sw.WriteLine(msg);
-                    sw.Flush();
+                    var msg = sr.ReadLine();
+                    foreach (var x in Clients.Where(x => x != client))
+                    {
+                        var sw = new StreamWriter(x.GetStream());
+                        sw.WriteLine(msg);
+                        sw.Flush();
+                    }
                 }
+                catch (Exception) { }
             }
         }
     }
